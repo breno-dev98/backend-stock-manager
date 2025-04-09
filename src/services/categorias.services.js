@@ -1,7 +1,7 @@
 import CategoriaRepository from "../repositories/categorias.repository.js";
 
-export default class UsuarioServices {
-    static async create(data) {
+export default class CategoriaServices {
+    static async createCategory(data) {
         const categoryExists = await CategoriaRepository.findByName(data.nome);
         if (categoryExists) {
             throw new Error("Categoria já cadastrada");
@@ -10,19 +10,19 @@ export default class UsuarioServices {
         return await CategoriaRepository.create(data)
     }
 
-    static async findAll() {
+    static async findAllCategorys() {
         return await CategoriaRepository.findAll()
     }
 
-    static async findById(id) {
+    static async findCategoryById(id) {
         return await CategoriaRepository.findById(id)
     }
 
-    static async update(id, data) {
+    static async updateCategory(id, data) {
        return await CategoriaRepository.update(id, data)
     }
 
-    static async delete(id) {
+    static async deleteCategory(id) {
        return await CategoriaRepository.delete(id)
 
     }

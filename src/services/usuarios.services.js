@@ -1,13 +1,18 @@
 import UsuarioRepository from "../repositories/usuarios.repository.js";
+import { hashPassword } from "../helpers/hashPassword.js";
 
 export default class UsuarioServices {
     static async createUser(data) {
+        const senhaCriptografada = await hashPassword(data.senha)
         const userExists = await UsuarioRepository.findByEmail(data.email);
         if (userExists) {
             throw new Error("Email já cadastrado");
         }
-        
-        return await UsuarioRepository.create(data)
+        const usuario = {
+            ...data,
+            senha: senhaCriptografada
+        }
+        return await UsuarioRepository.create(usuario)
     }
 
     static async findAllUsers() {
