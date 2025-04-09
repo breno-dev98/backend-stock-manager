@@ -19,11 +19,11 @@ export default class UsuarioServices {
     }
 
     static async updateUser(id, data) {
-        await UsuarioRepository.update(id, data)
+       return await UsuarioRepository.update(id, data)
     }
 
     static async deleteUser(id) {
-        await UsuarioRepository.delete(id)
+       return await UsuarioRepository.delete(id)
 
     }
 }
