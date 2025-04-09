@@ -9,6 +9,10 @@ export default class CategoriaRepository {
         return await categorias.findAll();
     }
 
+    static async findByName(nome) {
+        return await categorias.findOne({ where: { nome } });
+    }
+
     static async findById(id) {
         return await categorias.findByPk(id);
     }
