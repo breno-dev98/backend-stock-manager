@@ -1,4 +1,5 @@
 import { comparePassword } from "../helpers/hashPassword.js";
+import { generateToken } from "../helpers/jwt.js";
 import UsuarioRepository from "../repositories/usuarios.repository.js";
 
 export default class AuthService {
@@ -14,7 +15,9 @@ export default class AuthService {
         }
 
         const userData = user.get({plain: true})
-        const {senha, createdAt, updatedAt, ...dadosLimpos} = userData
-        return dadosLimpos;
+        const { senha, createdAt, updatedAt, ...dadosLimpos } = userData
+        
+        const token = generateToken(dadosLimpos)
+        return token;
     }
 }
