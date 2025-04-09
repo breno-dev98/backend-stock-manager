@@ -3,13 +3,15 @@ import CategoriaController from "../controllers/categorias.controllers.js";
 import { validate } from "../middlewares/validateRequest.js";
 import { categoriaSchema } from "../validations/categoria.schema.js";
 import { validateUUID } from "../middlewares/validateUUID.js";
+import { authMiddleware } from "../middlewares/authMiddleware.js";
+
 
 const router = Router()
 
-router.post('/categorias', validate(categoriaSchema), CategoriaController.create);
-router.get('/categorias', CategoriaController.getAll);
-router.get('/categorias/:id', validateUUID, CategoriaController.getById);
-router.put('/categorias/:id', validateUUID, validate(categoriaSchema), CategoriaController.update);
-router.delete('/categorias/:id', validateUUID, CategoriaController.delete)
+router.post('/categorias', authMiddleware, validate(categoriaSchema), CategoriaController.create);
+router.get('/categorias', authMiddleware, CategoriaController.getAll);
+router.get('/categorias/:id', authMiddleware, validateUUID, CategoriaController.getById);
+router.put('/categorias/:id', authMiddleware, validateUUID, validate(categoriaSchema), CategoriaController.update);
+router.delete('/categorias/:id', authMiddleware, validateUUID, CategoriaController.delete)
 
 export default router;
