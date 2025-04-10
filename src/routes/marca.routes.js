@@ -9,7 +9,7 @@ import { authMiddleware } from "../middlewares/authMiddleware.js";
 const router = Router()
 
 router.post('/marcas', authMiddleware, validate(marcaSchema), MarcasController.create);
-router.get('/marcas', authMiddleware, MarcasController.getAll);
+router.get('/marcas', authMiddleware, MarcasController.getByUser);
 router.get('/marcas/:id', authMiddleware, validateUUID, MarcasController.getById);
 router.put('/marcas/:id', authMiddleware, validateUUID, validate(marcaSchema), MarcasController.update);
 router.delete('/marcas/:id', authMiddleware, validateUUID, MarcasController.delete)
