@@ -6,13 +6,14 @@ export default class categorias extends Model {
   return super.init({
     id: {
       type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true
     },
     nome: {
       type: DataTypes.STRING(255),
       allowNull: false,
-      unique: "categorias_nome_key"
+      unique: "categorias_nome_key1"
     }
   }, {
     sequelize,
@@ -22,6 +23,13 @@ export default class categorias extends Model {
     indexes: [
       {
         name: "categorias_nome_key",
+        unique: true,
+        fields: [
+          { name: "nome" },
+        ]
+      },
+      {
+        name: "categorias_nome_key1",
         unique: true,
         fields: [
           { name: "nome" },
