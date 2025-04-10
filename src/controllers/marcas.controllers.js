@@ -38,7 +38,7 @@ export default class MarcasController {
     static async getByUser(req, res) {
         try {
             const marcaByUser = await MarcaServices.findMarcaByUser(req.user.id)
-            res.status(200).json(marcaByUser)
+            res.status(200).json({ message: "Busca bem-sucedida", qtd: marcaByUser.length, marcas: marcaByUser })
         } catch (error) {
             return res.status(400).json({ error: error.message })
         }

@@ -1,4 +1,4 @@
-import FornecedoresServices from '../services/fornecedores.services.js';
+import FornecedoresServices from '../services/fornecedores.js';
 
 export default class FornecedoresController {
     static async create(req, res) {
@@ -45,7 +45,11 @@ export default class FornecedoresController {
     static async getByUser(req, res) {
         try {
             const fornecedoresDoUsuario = await FornecedoresServices.findFornecedoresByUser(req.user.id);
-            return res.status(200).json(fornecedoresDoUsuario);
+            return res.status(200).json({
+                message: "Busca de fornecedores realizada com sucesso",
+                qtd: fornecedoresDoUsuario.length,
+                fornecedores: fornecedoresDoUsuario
+            });
         } catch (error) {
             return res.status(400).json({ error: error.message });
         }

@@ -38,7 +38,7 @@ export default class CategoriaController {
     static async getByUser(req, res) {
         try {
             const categorysByUser = await CategoriaServices.findCategoryByUser(req.user.id)
-            res.status(200).json(categorysByUser)
+            res.status(200).json({ message: "Busca bem-sucedida", qtd: categorysByUser.length, categorys: categorysByUser })
         } catch (error) {
             return res.status(400).json({ error: error.message })
         }
