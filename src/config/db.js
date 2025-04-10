@@ -1,6 +1,6 @@
+//./src/config/db.js
 import dotenv from 'dotenv'
 import { Sequelize } from 'sequelize'
-import initModels from '../models/init-models.js';
 
 dotenv.config()
 
@@ -35,7 +35,6 @@ const sequelize = new Sequelize({
     }
 })
 
-const models = initModels(sequelize);
 
 export async function connectDB() {
     try {
@@ -51,4 +50,3 @@ export async function connectDB() {
 }
 
 export default sequelize;
-export { models };

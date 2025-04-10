@@ -1,48 +1,30 @@
-import _sequelize from 'sequelize';
-const { Model, Sequelize } = _sequelize;
+import { DataTypes, UUIDV4 } from "sequelize";
+import sequelize from "../config/db.js";
+import Usuarios from "../models/usuarios.js";
+import { defineUserRelation } from "../helpers/defineUserRelation.js";
 
-export default class categorias extends Model {
-  static init(sequelize, DataTypes) {
-  return super.init({
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
-      primaryKey: true
-    },
-    nome: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-      unique: "categorias_nome_key1"
+const Categoria = sequelize.define('Categoria', {
+  id: {
+    type: DataTypes.UUID,
+    primaryKey: true,
+    defaultValue: UUIDV4,
+    allowNull: false,
+  },
+  nome: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+  },
+  user_id: {
+    type: DataTypes.UUID,
+    allowNull: false,
+    references: {
+      model: Usuarios,
+      key: "id"
     }
-  }, {
-    sequelize,
-    tableName: 'categorias',
-    schema: 'public',
-    timestamps: true,
-    indexes: [
-      {
-        name: "categorias_nome_key",
-        unique: true,
-        fields: [
-          { name: "nome" },
-        ]
-      },
-      {
-        name: "categorias_nome_key1",
-        unique: true,
-        fields: [
-          { name: "nome" },
-        ]
-      },
-      {
-        name: "categorias_pkey",
-        unique: true,
-        fields: [
-          { name: "id" },
-        ]
-      },
-    ]
-  });
   }
-}
+}, {
+  tableName: "categoria",
+})
+defineUserRelation(Categoria, Usuarios)
+
+export default Categoria;

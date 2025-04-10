@@ -13,6 +13,9 @@ export default class CategoriaServices {
     static async findAllCategorys() {
         return await CategoriaRepository.findAll()
     }
+    static async findCategoryByUser(id) {
+        return await CategoriaRepository.findByUser(id)
+    }
 
     static async findCategoryById(id) {
         return await CategoriaRepository.findById(id)

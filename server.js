@@ -1,8 +1,9 @@
 import cors from 'cors'
 import 'dotenv/config'
 import express from 'express'
-import { connectDB } from './src/config/db.js'
+import sequelize from './src/config/db.js'
 import routes from './src/routes/routes.js'
+import { setupModels } from './src/models/index.js'
 const app = express()
 const PORT = process.env.PORT || 3000
 app.use(express.json())
@@ -14,11 +15,22 @@ app.get('/', (req, res) => {
 })
 
 const startServer = async () => {
-    await connectDB()
+    try {
+        await sequelize.authenticate()
+        console.log('✅ Conexão com o banco de dados estabelecida com sucesso.')
 
-    app.listen(PORT, () => {
-        console.log(`🚀 Servidor rodando na porta ${PORT}`)
-    })
+        setupModels(sequelize)
+
+        await sequelize.sync({ alter: true })
+        console.log('📦 Models sincronizados com o banco de dados.')
+
+        app.listen(PORT, () => {
+            console.log(`🚀 Servidor rodando na porta ${PORT}`)
+        })
+    } catch (error) {
+        console.error('❌ Erro ao iniciar o servidor:', error)
+        process.exit(1)
+    }
 }
 
 startServer()

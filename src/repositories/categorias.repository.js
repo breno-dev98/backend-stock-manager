@@ -17,6 +17,10 @@ export default class CategoriaRepository {
         return await categorias.findByPk(id);
     }
 
+    static async findByUser(id) {
+        return await categorias.findAll({where: {user_id: id}})
+    }
+
     static async update(id, data) {
         const categoria = await categorias.findByPk(id);
         if (!categoria) return null;

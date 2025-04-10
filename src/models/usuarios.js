@@ -1,48 +1,30 @@
-import _sequelize from 'sequelize';
-const { Model, Sequelize } = _sequelize;
+import  sequelize  from "../config/db.js";
+import { DataTypes, UUIDV4 } from "sequelize";
 
-export default class usuarios extends Model {
-  static init(sequelize, DataTypes) {
-  return super.init({
-    id: {
-      type: DataTypes.UUID,
-      allowNull: false,
-      primaryKey: true
-    },
-    nome: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    email: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-      unique: "usuarios_email_key"
-    },
-    senha: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    tableName: 'usuarios',
-    schema: 'public',
-    timestamps: true,
-    indexes: [
-      {
-        name: "usuarios_email_key",
-        unique: true,
-        fields: [
-          { name: "email" },
-        ]
-      },
-      {
-        name: "usuarios_pkey",
-        unique: true,
-        fields: [
-          { name: "id" },
-        ]
-      },
-    ]
-  });
+const Usuarios = sequelize.define("Usuarios", {
+  id: {
+    type: DataTypes.UUID,
+    primaryKey: true,
+    defaultValue: UUIDV4,
+    allowNull: false,
+  },
+  nome: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING(255),
+    unique: true,
+    allowNull: false
+  },
+  senha: {
+    type: DataTypes.STRING(60),
+    allowNull: false
   }
-}
+},
+  {
+    tableName: "usuarios",
+    timestamps: true
+  })
+
+export default Usuarios;
