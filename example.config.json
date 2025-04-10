@@ -1,0 +1,14 @@
+{
+  "dialect": "postgres",
+  "host": "",
+  "port": 1234,
+  "database": "",
+  "username": "",
+  "password": "",
+  "dialectOptions": {
+    "ssl": {
+      "require": true,
+      "rejectUnauthorized": false
+    }
+  }
+}

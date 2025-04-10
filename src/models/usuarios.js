@@ -6,7 +6,6 @@ export default class usuarios extends Model {
   return super.init({
     id: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true
     },
