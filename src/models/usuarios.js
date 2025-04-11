@@ -20,6 +20,11 @@ const Usuarios = sequelize.define("Usuarios", {
   senha: {
     type: DataTypes.STRING(60),
     allowNull: false
+  },
+  papel: {
+    type: DataTypes.ENUM('OWNER', 'ADMIN', 'MODERADOR', 'FUNCIONARIO', 'CLIENT'),
+    defaultValue: 'CLIENT',
+    allowNull: false
   }
 },
   {

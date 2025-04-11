@@ -10,7 +10,8 @@ export default class UsuarioServices {
         }
         const usuario = {
             ...data,
-            senha: senhaCriptografada
+            senha: senhaCriptografada,
+            papel: 'CLIENT'
         }
         return await UsuarioRepository.create(usuario)
     }
