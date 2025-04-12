@@ -14,4 +14,8 @@ export const usuarioSchema = z.object({
         required_error: "O campo senha é obrigatório",
         invalid_type_error: "O campo senha deve ser um texto",
     }).min(6, "A senha deve ter pelo menos 6 caracteres"),
+    papel: z.string({
+        required_error: "O campo papel é obrigatório",
+        invalid_type_error: "O campo papel deve ser uma string"
+    })
 });

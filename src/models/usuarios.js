@@ -1,5 +1,6 @@
 import  sequelize  from "../config/db.js";
 import { DataTypes, UUIDV4 } from "sequelize";
+import { defineUserAdminRelation } from "../helpers/defineUserAdminRelation.js";
 
 const Usuarios = sequelize.define("Usuarios", {
   id: {
@@ -25,11 +26,23 @@ const Usuarios = sequelize.define("Usuarios", {
     type: DataTypes.ENUM('OWNER', 'ADMIN', 'MODERADOR', 'FUNCIONARIO', 'CLIENT'),
     defaultValue: 'CLIENT',
     allowNull: false
+  },
+  adminId: {
+    type: DataTypes.UUID,
+    allowNull: true, // OWNER pode criar também, então deixe true
+    references: {
+      model: 'usuarios',
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL' // se o admin for deletado, os usuários ficam sem dono
   }
 },
   {
     tableName: "usuarios",
     timestamps: true
   })
+
+defineUserAdminRelation(Usuarios, Usuarios)
 
 export default Usuarios;
