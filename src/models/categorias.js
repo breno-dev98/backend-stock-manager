@@ -20,7 +20,8 @@ const Categoria = sequelize.define('Categoria', {
     references: {
       model: Usuarios,
       key: "id"
-    }
+    },
+    onDelete: 'CASCADE',
   }
 }, {
   tableName: "categoria",

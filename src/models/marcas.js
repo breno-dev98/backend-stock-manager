@@ -20,7 +20,8 @@ const Marcas = sequelize.define('Marcas', {
         references: {
             model: Usuarios,
             key: "id"
-        }
+        },
+        onDelete: 'CASCADE'
     }
 }, {
     tableName: "marcas",

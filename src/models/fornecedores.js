@@ -29,7 +29,8 @@ const Fornecedores = sequelize.define('Fornecedores', {
         references: {
             model: Usuarios,               // Faz referência ao model de usuários
             key: "id"
-        }
+        },
+        onDelete: 'CASCADE'
     }
 }, {
     tableName: "fornecedores",             // Define o nome real da tabela no banco de dados
