@@ -9,6 +9,10 @@ export default class UsuarioRepository {
         return await usuarios.findAll();
     }
 
+    static async findAllByAdminId(adminId) {
+        return await usuarios.findAll({where: {adminId}});
+    }
+
     static async findByEmail(email) {
         return await usuarios.findOne({ where: { email } });
     }

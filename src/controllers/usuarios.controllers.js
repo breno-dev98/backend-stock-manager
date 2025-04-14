@@ -12,7 +12,7 @@ class UsuarioController {
 
     static async getAll(req, res) {
         try {
-            const usuarios = await UsuarioServices.findAllUsers()
+            const usuarios = await UsuarioServices.findAllUsers(req)
             return res.status(200).json({ message: "Busca bem-sucedida", qtd: usuarios.length, users: usuarios })
         } catch (error) {
             return res.status(400).json({ error: error.message })

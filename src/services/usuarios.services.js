@@ -8,16 +8,35 @@ export default class UsuarioServices {
         if (userExists) {
             throw new Error("Email já cadastrado");
         }
+
+        // Definir adminId com base no papel do usuário logado
+        let adminId = null;
+
+        // OWNER pode criar qualquer usuário, então ele define o adminId
+        if (req.user.papel === 'OWNER') {
+            adminId = req.user.id; // O adminId é sempre o do OWNER
+        }
+
+        // ADMIN pode criar apenas usuários de nível inferior a ele
+        if (req.user.papel === 'ADMIN') {
+            adminId = req.user.id; // O adminId é o do ADMIN, já que ele pode criar usuários abaixo dele
+        }
+
         const usuario = {
             ...data,
             senha: senhaCriptografada,
-            adminId: req.user.papel === 'ADMIN' ? req.user.id : null
+            adminId,
         }
         return await UsuarioRepository.create(usuario)
     }
 
-    static async findAllUsers() {
-        return await UsuarioRepository.findAll()
+    static async findAllUsers(req) {
+        if (req.user.papel === "OWNER") {
+            return await UsuarioRepository.findAll()
+        } 
+        if (req.user.papel === "ADMIN") {
+            return await UsuarioRepository.findAllByAdminId(req.user.id)
+        }
     }
 
     static async findById(id) {
