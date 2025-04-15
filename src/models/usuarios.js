@@ -29,13 +29,13 @@ const Usuarios = sequelize.define("Usuarios", {
   },
   adminId: {
     type: DataTypes.UUID,
-    allowNull: true, // OWNER pode criar também, então deixe true
+    allowNull: false, // OWNER pode criar também, então deixe true
     references: {
       model: 'usuarios',
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL' // se o admin for deletado, os usuários ficam sem dono
+    onDelete: 'CASCADE' // se o admin for deletado, os usuários ficam sem dono
   }
 },
   {
