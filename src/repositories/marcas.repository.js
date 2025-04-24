@@ -22,16 +22,16 @@ export default class MarcasRepository {
     }
 
     static async update(id, data) {
-        const categoria = await marcas.findByPk(id);
-        if (!categoria) return null;
+        const marca = await marcas.findByPk(id);
+        if (!marca) return null;
 
         await marcas.update(data, { where: { id } });
-        return categoria;
+        return marca;
     }
 
     static async delete(id) {
-        const categoria = await marcas.findByPk(id);
-        if (!categoria) return null;
+        const marca = await marcas.findByPk(id);
+        if (!marca) return null;
 
         await marcas.destroy({ where: { id } });
         return true;

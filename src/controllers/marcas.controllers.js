@@ -58,7 +58,7 @@ export default class MarcasController {
 
     static async delete(req, res) {
         try {
-            const deletado = await MarcaServices.deleteCategory(req.params.id)
+            const deletado = await MarcaServices.deleteMarca(req.params.id)
             if (!deletado) return res.status(404).json({ error: "marca não encontrado" });
 
             return res.status(204).send();
