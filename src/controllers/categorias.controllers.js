@@ -50,7 +50,7 @@ export default class CategoriaController {
             if (!category) return res.status(404).json({ error: "categoria não encontrado" });
 
             const updated = await CategoriaServices.updateCategory(req.params.id, req.body)
-            return res.status(200).json({ message: "Categoria atualizada com sucesso", user: updated })
+            return res.status(200).json({ message: "Categoria atualizada com sucesso", category: updated })
         } catch (error) {
             return res.status(400).json({ error: error.message })
         }

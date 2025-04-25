@@ -26,7 +26,8 @@ export default class CategoriaRepository {
         if (!categoria) return null;
 
         await categorias.update(data, { where: { id } });
-        return categoria;
+        const categoriaAtualizada = await categorias.findByPk(id);
+        return categoriaAtualizada;
     }
 
     static async delete(id) {
