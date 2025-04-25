@@ -1,10 +1,10 @@
 import MarcasRepository from "../repositories/marcas.repository.js";
 
-export default class CategoriaServices {
+export default class MarcaServices {
     static async createMarca(data) {
         const marcaExists = await MarcasRepository.findByName(data.nome);
         if (marcaExists) {
-            throw new Error("Categoria já cadastrada");
+            throw new Error("Marca já cadastrada");
         }
         
         return await MarcasRepository.create(data)

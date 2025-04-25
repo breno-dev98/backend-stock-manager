@@ -50,7 +50,7 @@ export default class MarcasController {
             if (!marca) return res.status(404).json({ error: "marca não encontrado" });
 
             const updated = await MarcaServices.updateMarca(req.params.id, req.body)
-            return res.status(200).json({ message: "Marca atualizada com sucesso", user: updated })
+            return res.status(200).json({ message: "Marca atualizada com sucesso", marca: updated })
         } catch (error) {
             return res.status(400).json({ error: error.message })
         }

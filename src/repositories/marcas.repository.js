@@ -26,7 +26,8 @@ export default class MarcasRepository {
         if (!marca) return null;
 
         await marcas.update(data, { where: { id } });
-        return marca;
+        const updatedMarca = await marcas.findByPk(id);
+        return updatedMarca;
     }
 
     static async delete(id) {

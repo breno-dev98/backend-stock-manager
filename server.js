@@ -6,8 +6,8 @@ import routes from './src/routes/routes.js'
 import { setupModels } from './src/models/index.js'
 const app = express()
 const PORT = process.env.PORT || 3000
-app.use(express.json())
 app.use(cors())
+app.use(express.json())
 app.use("/api", routes)
 
 app.get('/', (req, res) => {
