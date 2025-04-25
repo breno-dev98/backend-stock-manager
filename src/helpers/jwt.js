@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 const SECRET = process.env.JWT_SECRET || 'chave_secreta';
 export function generateToken(payload) {
-    return jwt.sign(payload, SECRET, {expiresIn: "1h"})
+    return jwt.sign(payload, SECRET, {expiresIn: "3h"})
 }
 
 export function verifyToken(token) {

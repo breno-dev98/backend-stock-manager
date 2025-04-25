@@ -23,6 +23,13 @@ const Fornecedores = sequelize.define('Fornecedores', {
         type: DataTypes.STRING(20),        // Campo de telefone (ex: (00) 00000-0000)
         allowNull: true                    // Campo opcional
     },
+    email: {
+        type: DataTypes.STRING(255),      // Campo de texto para e-mail com até 255 caracteres
+        allowNull: true,                  // Pode ser opcional
+        validate: {
+            isEmail: true                 // Valida se é um e-mail válido
+        }
+    },
     user_id: {
         type: DataTypes.UUID,              // UUID do usuário que cadastrou
         allowNull: false,                  // Obrigatório
