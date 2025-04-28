@@ -8,10 +8,10 @@ import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 const router = Router();
 
-router.post('/fornecedores', authMiddleware, validate(fornecedorSchema), FornecedoresController.create);
+router.post('/fornecedores', authMiddleware, FornecedoresController.create);
 router.get('/fornecedores', authMiddleware, FornecedoresController.getByUser);
 router.get('/fornecedores/:id', authMiddleware, validateUUID, FornecedoresController.getById);
-router.put('/fornecedores/:id', authMiddleware, validateUUID, validate(fornecedorSchema), FornecedoresController.update);
+router.put('/fornecedores/:id', authMiddleware, validateUUID, FornecedoresController.update);
 router.delete('/fornecedores/:id', authMiddleware, validateUUID, FornecedoresController.delete);
 
 export default router;

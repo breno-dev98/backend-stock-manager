@@ -5,45 +5,93 @@ import { defineUserRelation } from "../helpers/defineUserRelation.js";
 
 const Fornecedores = sequelize.define('Fornecedores', {
     id: {
-        type: DataTypes.UUID,              // Define o tipo como UUID (identificador único universal)
-        primaryKey: true,                  // Define como chave primária da tabela
-        defaultValue: UUIDV4,              // Gera automaticamente um UUID versão 4
-        allowNull: false,                  // Não permite valor nulo
+        type: DataTypes.UUID,
+        primaryKey: true,
+        defaultValue: UUIDV4,
+        allowNull: false,
     },
     nome: {
-        type: DataTypes.STRING(255),       // Campo de texto com no máximo 255 caracteres
-        allowNull: false,                  // Obrigatório preencher
+        type: DataTypes.STRING(255),
+        allowNull: false,
+        validate: {
+            notEmpty: {
+                msg: "Nome é obrigatório"
+            },
+            isString(value) {
+                if (typeof value !== "string") {
+                    throw new Error("O campo nome deve ser do tipo string");
+                }
+            }
+        }
     },
     cnpj: {
-        type: DataTypes.STRING(18),        // CNPJ com máscara (ex: 00.000.000/0000-00)
-        allowNull: false,                  // Obrigatório preencher
-        unique: true                       // Não pode haver dois fornecedores com o mesmo CNPJ
+        type: DataTypes.STRING(18),
+        allowNull: false,
+        set(value) {
+            if (typeof value === 'string') {
+                const onlyNumbers = value.replace(/\D/g, '');
+                this.setDataValue('cnpj', onlyNumbers);
+            } else {
+                this.setDataValue('cnpj', value);
+            }
+        },
+        validate: {
+            notNull: {
+                msg: "CNPJ não pode ser nulo"
+            },
+            len: {
+                args: [14, 14],
+                msg: "CNPJ deve conter exatamente 14 dígitos numéricos"
+            }
+        }
     },
     telefone: {
-        type: DataTypes.STRING(20),        // Campo de telefone (ex: (00) 00000-0000)
-        allowNull: true                    // Campo opcional
+        type: DataTypes.STRING(20),
+        allowNull: false,
+        validate: {
+            notNull: {
+                msg: "Telefone não pode ser nulo"
+            },
+            notEmpty: {
+                msg: "Telefone é obrigatório"
+            },
+            len: {
+                args: [11, 11],
+                msg: "Telefone deve conter exatamente 11 dígitos numéricos"
+            },
+            isNumeric: {
+                msg: "Telefone deve conter apenas números"
+            }
+        }
     },
     email: {
-        type: DataTypes.STRING(255),      // Campo de texto para e-mail com até 255 caracteres
-        allowNull: true,                  // Pode ser opcional
+        type: DataTypes.STRING(255),
+        allowNull: true,
         validate: {
-            isEmail: true                 // Valida se é um e-mail válido
+            isEmail: {
+                msg: "E-mail inválido"
+            }
         }
     },
     user_id: {
-        type: DataTypes.UUID,              // UUID do usuário que cadastrou
-        allowNull: false,                  // Obrigatório
+        type: DataTypes.UUID,
+        allowNull: false,
         references: {
-            model: Usuarios,               // Faz referência ao model de usuários
+            model: Usuarios,
             key: "id"
         },
         onDelete: 'CASCADE'
     }
 }, {
-    tableName: "fornecedores",             // Define o nome real da tabela no banco de dados
+    tableName: "fornecedores",
+    indexes: [
+        {
+            unique: true,
+            fields: ['user_id', 'cnpj']
+        }
+    ]
 });
 
-// Define a relação entre o fornecedor e o usuário (provavelmente 1:N)
 defineUserRelation(Fornecedores, Usuarios);
 
 export default Fornecedores;

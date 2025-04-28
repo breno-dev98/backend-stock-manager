@@ -9,10 +9,10 @@ import { verificarCriacaoUsuarioPermitida } from "../middlewares/verificarCriaca
 
 const router = Router()
 
-router.post('/usuarios', authMiddleware, validate(usuarioSchema), verificarCriacaoUsuarioPermitida, UsuarioController.create);
+router.post('/usuarios', authMiddleware, verificarCriacaoUsuarioPermitida, UsuarioController.create);
 router.get('/usuarios', authMiddleware, UsuarioController.getAll);
 router.get('/usuarios/:id', authMiddleware, validateUUID, UsuarioController.getById);
-router.put('/usuarios/:id', authMiddleware, validateUUID, validate(usuarioSchema), UsuarioController.update);
+router.put('/usuarios/:id', authMiddleware, validateUUID, UsuarioController.update);
 router.delete('/usuarios/:id', authMiddleware, validateUUID, UsuarioController.delete)
 
 export default router;

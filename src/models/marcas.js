@@ -13,6 +13,19 @@ const Marcas = sequelize.define('Marcas', {
     nome: {
         type: DataTypes.STRING(255),
         allowNull: false,
+        validate: {
+            notNull: {
+                msg: "Nome não pode ser nulo"
+            },
+            notEmpty: {
+                msg: "Nome é obrigatório"
+            },
+            isString(value) {
+                if (typeof value !== "string") {
+                    throw new Error("O campo nome deve ser do tipo string");
+                }
+            }
+        }
     },
     user_id: {
         type: DataTypes.UUID,

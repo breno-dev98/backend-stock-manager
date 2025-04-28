@@ -4,11 +4,13 @@ import express from 'express'
 import sequelize from './src/config/db.js'
 import routes from './src/routes/routes.js'
 import { setupModels } from './src/models/index.js'
+import { errorHandler } from './src/middlewares/errorHandler.js'
 const app = express()
 const PORT = process.env.PORT || 3000
 app.use(cors())
 app.use(express.json())
 app.use("/api", routes)
+app.use(errorHandler)
 
 app.get('/', (req, res) => {
     res.send("Bem Vindo ao Servidor!")
