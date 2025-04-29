@@ -1,7 +1,5 @@
 import { Router } from "express";
 import CategoriaController from "../controllers/categorias.controllers.js";
-import { validate } from "../middlewares/validateRequest.js";
-import { categoriaSchema } from "../validations/categoria.schema.js";
 import { validateUUID } from "../middlewares/validateUUID.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 

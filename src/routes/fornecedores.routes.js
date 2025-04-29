@@ -1,8 +1,6 @@
 // src/routes/fornecedores.routes.js
 import { Router } from "express";
 import FornecedoresController from "../controllers/fornecedores.controllers.js";
-import { validate } from "../middlewares/validateRequest.js";
-import { fornecedorSchema } from "../validations/fornecedor.schema.js";
 import { validateUUID } from "../middlewares/validateUUID.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 

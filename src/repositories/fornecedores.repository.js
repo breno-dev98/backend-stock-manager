@@ -26,7 +26,8 @@ export default class FornecedoresRepository {
         if (!fornecedor) return null;
 
         await fornecedores.update(data, { where: { id } });
-        return fornecedor;
+        const fornecedorAtulizado = await fornecedores.findByPk(id)
+        return fornecedorAtulizado;
     }
 
     static async delete(id) {

@@ -1,7 +1,5 @@
 import { Router } from "express";
 import UsuarioController from "../controllers/usuarios.controllers.js";
-import { validate } from "../middlewares/validateRequest.js";
-import { usuarioSchema } from "../validations/usuario.schema.js";
 import { validateUUID } from "../middlewares/validateUUID.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js"
 import { verificarCriacaoUsuarioPermitida } from "../middlewares/verificarCriacaoUsuarioPermitida.js";
