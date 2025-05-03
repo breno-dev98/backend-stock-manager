@@ -6,7 +6,7 @@ export default class ProdutoServices {
     }
 
     static async findAllProdutos() {
-        return await ProdutosRepository.findAll()
+        return await ProdutosRepository.findAll(req)
     }
     static async findProdutoByUser(id) {
         return await ProdutosRepository.findByUser(id)

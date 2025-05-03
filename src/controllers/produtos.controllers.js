@@ -21,7 +21,7 @@ export default class ProdutosController {
 
     static async getAll(req, res) {
         try {
-            const produtos = await ProdutoServices.findAllProdutos()
+            const produtos = await ProdutoServices.findAllProdutos(req)
             return res.status(200).json({ message: "Busca bem-sucedida", qtd: produtos.length, produtos: produtos })
         } catch (error) {
             return res.status(400).json({ error: error.message })

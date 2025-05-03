@@ -5,8 +5,10 @@ export default class ProdutosRepository {
         return await Produtos.create(data);
     }
 
-    static async findAll() {
-        return await Produtos.findAll();
+    static async findAll(req) {
+        if (req.user.papel === "ADMIN") {
+            return await Produtos.findAll({where: {user_id: req.user.id}});
+        }
     }
 
     static async findByName(nome) {
