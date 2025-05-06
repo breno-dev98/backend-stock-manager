@@ -9,7 +9,7 @@ export default class ProdutosController {
         try {
 
             const newProduto = await ProdutoServices.createProduto(dados);
-            return res.status(201).json({ message: "Cadastro bem-sucedido!", produtos: newProduto })
+            return res.status(201).json({ message: "Cadastro bem-sucedido!", produto: newProduto })
         } catch (error) {
             if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeDatabaseError') {
                 const errors = error.errors.map(err => err.message);
@@ -54,7 +54,7 @@ export default class ProdutosController {
             if (!produto) return res.status(404).json({ error: "produto não encontrado" });
 
             const updated = await ProdutoServices.updateProduto(req.params.id, req.body)
-            return res.status(200).json({ message: "Marca atualizada com sucesso", user: updated })
+            return res.status(200).json({ message: "Marca atualizada com sucesso", produto: updated })
         } catch (error) {
             return res.status(400).json({ error: error.message })
         }

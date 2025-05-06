@@ -64,6 +64,20 @@ const Produtos = sequelize.define('Produtos', {
             }
         }
     },
+    ean: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate: {
+            isValidEAN(value) {
+                const ean13Regex = /^789\d{10}$/;
+                const internoRegex = /^\d{5}$/;
+
+                if (value && !ean13Regex.test(value) && !internoRegex.test(value)) {
+                    throw new Error('EAN inválido. Use EAN-13 (começando com 789) ou código interno de 5 dígitos.');
+                }
+            }
+        }
+    },
     quantidade: {
         type: DataTypes.DECIMAL(10, 3), // permite até 3 casas decimais
         allowNull: false,
