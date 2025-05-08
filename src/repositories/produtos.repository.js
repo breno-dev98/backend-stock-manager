@@ -24,11 +24,12 @@ export default class ProdutosRepository {
     }
 
     static async update(id, data) {
-        const produto = await Produtos.findByPk(id);
-        if (!produto) return null;
+        const produtoExiste = await Produtos.findByPk(id);
+        if (!produtoExiste) return null;
 
         await Produtos.update(data, { where: { id } });
-        return produto;
+        const updateProduto = await Produtos.findByPk(id)
+        return updateProduto;
     }
 
     static async delete(id) {
