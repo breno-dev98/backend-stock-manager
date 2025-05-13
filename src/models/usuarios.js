@@ -53,12 +53,12 @@ const Usuarios = sequelize.define("Usuarios", {
     }
   },
   papel: {
-    type: DataTypes.ENUM('OWNER', 'ADMIN', 'MODERADOR', 'FUNCIONARIO', 'CLIENT'),
+    type: DataTypes.ENUM('OWNER', 'ADMIN', 'ESTOQUISTA', 'COMPRADOR', 'CLIENT'),
     defaultValue: 'CLIENT',
     allowNull: false,
     validate: {
       isIn: {
-        args: [['OWNER', 'ADMIN', 'MODERADOR', 'FUNCIONARIO', 'CLIENT']],
+        args: [['OWNER', 'ADMIN', 'ESTOQUISTA', 'COMPRADOR', 'CLIENT']],
         msg: "Papel inválido"
       }
     }

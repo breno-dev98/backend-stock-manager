@@ -10,7 +10,7 @@ const router = Router();
 router.post(
     '/entradas',
     authMiddleware,
-    autorizar('OWNER', 'ADMIN', 'MODERADOR', 'FUNCIONARIO'),
+    autorizar('OWNER', 'ADMIN', 'ESTOQUISTA', 'COMPRADOR'),
     EntradasController.create
 );
 
@@ -18,7 +18,7 @@ router.post(
 router.get(
     '/entradas',
     authMiddleware,
-    autorizar('OWNER', 'ADMIN', 'MODERADOR', 'FUNCIONARIO'),
+    autorizar('OWNER', 'ADMIN', 'ESTOQUISTA', 'COMPRADOR'),
     EntradasController.getByUser
 );
 
@@ -26,7 +26,7 @@ router.get(
 router.get(
     '/entradas/:id',
     authMiddleware,
-    autorizar('OWNER', 'ADMIN', 'MODERADOR', 'FUNCIONARIO'),
+    autorizar('OWNER', 'ADMIN', 'ESTOQUISTA', 'COMPRADOR'),
     validateUUID,
     EntradasController.getById
 );
@@ -35,7 +35,7 @@ router.get(
 router.get(
     '/entradas/produto/:produto_id',
     authMiddleware,
-    autorizar('OWNER', 'ADMIN', 'MODERADOR'),
+    autorizar('OWNER', 'ADMIN', 'ESTOQUISTA'),
     validateUUID,
     EntradasController.getByProduto
 );
