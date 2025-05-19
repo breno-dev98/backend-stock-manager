@@ -98,6 +98,36 @@ const Produtos = sequelize.define('Produtos', {
             }
         }
     },
+    estoque_minimo: {
+        type: DataTypes.DECIMAL(10, 3),
+        allowNull: false,
+        defaultValue: 0,
+        validate: {
+            isDecimal: { msg: 'O estoque mínimo deve ser um número decimal' },
+            min: {
+                args: [0],
+                msg: 'O estoque mínimo não pode ser negativo'
+            }
+        }
+    },
+    estoque_maximo: {
+        type: DataTypes.DECIMAL(10, 3),
+        allowNull: false,
+        defaultValue: 0,
+        validate: {
+            isDecimal: { msg: 'O estoque máximo deve ser um número decimal' },
+            min: {
+                args: [0],
+                msg: 'O estoque máximo não pode ser negativo'
+            },
+            maiorOuIgualMinimo(value) {
+                if (value < this.estoque_minimo) {
+                    throw new Error('O estoque máximo deve ser maior ou igual ao estoque mínimo');
+                }
+            }
+        }
+    },
+
     unidade_medida: {
         type: DataTypes.ENUM('UNIDADE', 'KG', 'LITRO', 'CX', 'PC'),
         allowNull: false,
