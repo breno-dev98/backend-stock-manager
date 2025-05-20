@@ -1,13 +1,19 @@
 import EntradaServices from '../services/entradas.services.js';
+import Produtos from '../models/produtos.js';
 
 export default class EntradasController {
     static async create(req, res) {
+        const {produto_id} = req.body
         const dados = {
             ...req.body,
             user_id: req.user.id // associando a entrada ao usuário logado
         };
 
         try {
+            const produto = await Produtos.findByPk(produto_id);
+            if (!produto) {
+                return res.status(404).json({ error: 'Produto não encontrado' });
+            }
             const novaEntrada = await EntradaServices.createEntrada(dados);
             return res.status(201).json({
                 message: "Entrada registrada com sucesso!",
