@@ -2,6 +2,10 @@ import Categoria from './categorias.js'
 import Marcas from './marcas.js'
 import Usuarios from './usuarios.js'
 import Fornecedores from './fornecedores.js'
+import Produtos from './produtos.js'
+import Entradas from './entradas.js'
+import Saidas from './saidas.js'
+
 
 function setupModels(sequelize) {
     // Aqui você já importou os models que usam sequelize internamente
@@ -12,7 +16,10 @@ function setupModels(sequelize) {
         Categoria,
         Marcas,
         Usuarios,
-        Fornecedores
+        Fornecedores,
+        Produtos,
+        Entradas,
+        Saidas
     }
 }
 

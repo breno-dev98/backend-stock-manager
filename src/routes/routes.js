@@ -6,6 +6,7 @@ import authRoutes from './auth.routes.js'
 import fornecedorRoutes from './fornecedores.routes.js'
 import produtosRoutes from './produtos.routes.js'
 import entradasRoutes from './entradas.routes.js'
+import saidaRoutes from './saidas.routes.js'
 
 const router = Router();
 
@@ -16,6 +17,7 @@ router.use(marcasRoutes);
 router.use(fornecedorRoutes);
 router.use(produtosRoutes);
 router.use(entradasRoutes);
+router.use(saidaRoutes);
 
 
 
